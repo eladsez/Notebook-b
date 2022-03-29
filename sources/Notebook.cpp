@@ -91,5 +91,14 @@ void ariel::Notebook::show(int page) {
     if (page < 0){
         throw invalid_argument("page cant be negative");
     }
-    nb[page];
+    int last_row = -1;
+    for (const auto &row : nb[page]){
+        if (last_row + 1!= row.first){
+            for (int i = last_row + 1; i < row.first; ++i){
+                cout << row.first << ") " << read(page, i, 0, Direction::Horizontal, MAX_ROW_LEN - 1);
+            }
+        }
+        cout << row.first << ") " << read(page, row.first, 0, Direction::Horizontal, MAX_ROW_LEN - 1);
+        last_row = row.first;
+    }
 }
